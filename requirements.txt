@@ -1,7 +1,6 @@
 beautifulsoup4==4.5.3
 Django==1.10.6
 gunicorn==19.4.5
-gyp==0.1
 pbr==2.0.0
 Python==2.7.12
 requests==2.13.0
