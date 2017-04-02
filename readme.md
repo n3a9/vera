@@ -12,6 +12,19 @@ Check it out at [verafy.herokuapp.com](verafy.herokuapp.com).
 
 ## How it works
 
+We used Microsoft Cognitive Services (MCS) Language Analytics to pick apart the parts of speech in the statement, and break it down in subject, verb, and descriptor (e.g. The sky (subject) is (verb) blue (descriptor)). The statement is subject to several algorithms. 
+
+1. Firstly, we check if MCS Web Language Model can predict one half of the statement from the first half (making it likely to be true). For example, we can predict that “1919” will likely follow the phrase “UCLA was founded in”. 
+
+2. Second, we check whether the negative version of the statement is more or less likely to be predicted by MCS, using Big Huge Thesaurus to find antonyms. With Vera.fy, we were able to validate Donald Trump’s quote that “there has been a tremendous surge of optimism in the business world” using our second method. 
+
+3. Thirdly, we deployed our own API with Wolfram’s Cloud Development Platform to identify the topic of the statement, find descriptors in the same category and compare them with the current descriptor with MCS to see which one is the most plausible. For example, “”. 
+
+4. Finally, if all else fails, we determine the validity of the statement based on how likely MCS the words in the sentence to follow each other. For example, “Obama hates cheese.“ is just not a very common sentence.
+
+We also account for negation in the statements and for a completely true sentence, not a partially true sentence.
+We are still improving the AI, and hope to make it process more complex sentences, and differentiate common myths (e.g. “Obama was not born in America”) from popular truths.
+
 ## Technologies Used
 
 Built using Python and Django. Connected with Microsoft Cognitive Services API, Wolfram API, and [Big Huge Thesaurus](https://words.bighugelabs.com/api.php).
