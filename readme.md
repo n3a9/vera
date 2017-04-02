@@ -1,4 +1,4 @@
-# Vera![lahacks badge](https://img.shields.io/badge/lahacks-rocks-ff69b4.svg)
+# Vera ![lahacks badge](https://img.shields.io/badge/lahacks-rocks-ff69b4.svg)
 
 An artificial intelligence system to determine if a given statement is true or false.
 
@@ -13,6 +13,8 @@ Check it out at [verafy.herokuapp.com](verafy.herokuapp.com).
 ## How it works
 
 ## Technologies Used
+
+Built using Python and Django. Connected with Microsoft Cognitive Services API, Wolfram API, and [Big Huge Thesaurus](https://words.bighugelabs.com/api.php).
 
 ## Contributors
 
