@@ -16,9 +16,8 @@ Check it out at [verafy.herokuapp.com](verafy.herokuapp.com).
 
 Built using Python and Django. Connected with Microsoft Cognitive Services API, Wolfram API, and [Big Huge Thesaurus](https://words.bighugelabs.com/api.php).
 
+Deployed using Heroku.
+
 ## Contributors
 
-- [Kyle](https://github.com/kdpatters)
-- [Alex](https://github.com/alexcdot)
-- [Ankur](https://github.com/ankurpapneja)
-- [Neeraj](https://github.com/n3a9)
+[Kyle](https://github.com/kdpatters) & [Alex](https://github.com/alexcdot) & [Ankur](https://github.com/ankurpapneja) & [Neeraj](https://github.com/n3a9)
