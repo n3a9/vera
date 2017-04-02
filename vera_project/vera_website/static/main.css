@@ -65,12 +65,13 @@ button:hover {
 @media screen and (max-width: 1046px) {
 
     html {
-        padding-top: 20%;
+        padding-top: 15%;
     }
     
-    body {
-    overflow: hidden;
-}
+    html, body {
+      overflow-x: hidden;
+      position: fixed;
+    }
     
     h1 {
         font-size: 2.5em;
