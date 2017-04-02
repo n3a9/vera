@@ -5,7 +5,6 @@ pbr==2.0.0
 requests==2.13.0
 six==1.10.0
 stevedore==1.21.0
-unity-lens-photos==1.0
 virtualenv==15.1.0
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.2
