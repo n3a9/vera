@@ -68,6 +68,10 @@ button:hover {
         padding-top: 20%;
     }
     
+    body {
+    overflow: hidden;
+}
+    
     h1 {
         font-size: 2.5em;
     }
@@ -79,6 +83,10 @@ button:hover {
     h3 {
         font-size: 1.5em;
         width: 80%;
+    }
+    
+    button {
+        margin-top: 4em;
     }
     
 }
