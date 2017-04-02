@@ -1,6 +1,4 @@
-import json
-import httplib, urllib, base64
-import string
+import json, httplib, urllib, base64, string
 
 def getSuggestion(statement, word):
     headers = {
@@ -191,6 +189,10 @@ def recombine(tokens, replacement='', index=-1):
             combinedStatement += token + " "
     #print combinedStatement[:len(combinedStatement) -1]        
     return combinedStatement[:len(combinedStatement) -1]
+
+def getLikelihood(phrase, basePhrase):
+    '''Returns a string percentage of likelihood of truth of phrase.'''
+    return 10 ** (getScore(phrase) - getScore(basePhrase))
 
 def truthme(statement):
     parsedStatement = getTags(statement) # tags, tokens
