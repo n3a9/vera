@@ -2,7 +2,7 @@ beautifulsoup4==4.5.3
 Django==1.10.6
 gunicorn==19.4.5
 pbr==2.0.0
-Python==2.7.12
+python==2.7.12
 requests==2.13.0
 six==1.10.0
 stevedore==1.21.0
