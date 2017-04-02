@@ -1,0 +1,105 @@
+html {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #fff;
+    height: 100%;
+    background-image: url(sky.gif);
+    background-color: black;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-color: hsla(0,0%,0%,0.20);
+    background-blend-mode: overlay;
+}
+
+body {
+  width: 100%;
+  overflow: hidden;
+}
+
+h1 {
+    margin-top: .4em;
+    padding-left: .6em;
+    float: left;
+    font-size: 2.5em;
+}
+
+#right {
+    width: 45%;
+    float: right;
+    padding-right: 3.4em;
+}
+
+h2 {
+    padding-top: 4.6em;
+    padding-right: .5em;
+    float: right;
+    text-align: right;
+    font-size: 3.2em;
+    margin-right: -.5em;
+}
+
+h3 {
+    margin-top: -.2em;
+    float: right;
+    text-align: right;
+    font-size: 1.8em;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    float: right;
+    border: 0;
+    background-color: #2a3191;
+    box-shadow: 0 3px 0 0 #090a5d;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 2.5em;
+    width: 9em;
+    font-size: 1.5em;
+    color: #fff;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #172c59;
+}
+
+/*
+@media screen and (max-width: 1046px) {
+
+    html {
+        padding-top: 15%;
+    }
+    
+    html, body {
+      overflow-x: hidden;
+      position: fixed;
+    }
+    
+    h1 {
+        font-size: 2.5em;
+    }
+    
+    h2 {
+        font-size: 2em;
+    }
+    
+    h3 {
+        font-size: 1.5em;
+        width: 80%;
+    }
+    
+    button {
+        margin-top: 4em;
+    }
+    
+}
+*/

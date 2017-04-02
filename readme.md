@@ -1,3 +1,5 @@
-# Vera
+# Vera.fy
 
-An artificial intelligence system to determine if a given statement is true or false.
+An artificial intelligence system that determines whether a given statement is true or false
+
+verafy.herokuapp.com
