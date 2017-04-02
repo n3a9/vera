@@ -2,6 +2,38 @@ import json
 import httplib, urllib, base64
 import string
 
+def getSuggestion(statement, word):
+    headers = {
+        # Request headers
+        'Ocp-Apim-Subscription-Key': '567bcf0b64d645e2880d710995d3ff88'
+    }
+    
+    params = urllib.urlencode({
+        # Request parameters
+        'model': 'body',
+        'words': statement,
+        'order': '5',
+        'maxNumOfCandidatesReturned': '10',
+    })
+    
+    try:
+        conn = httplib.HTTPSConnection('westus.api.cognitive.microsoft.com')
+        conn.request("POST", "/text/weblm/v1.0/generateNextWords?%s" % params, "", headers)
+        response = conn.getresponse()  
+        data = json.loads(response.read())
+        #print(data)
+        conn.close()
+
+        for candidate in data['candidates']:
+            if word == candidate['word']:
+                #print word
+                return True
+        
+        #print 'no suggestions'
+        return False
+
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
 def getTags(statement):
     headers = {
@@ -32,6 +64,8 @@ def getTags(statement):
                 tags.append('noun')
             elif tag == 'VB':
                 tags.append('verb')
+            elif tag == 'CD':
+                tags.append('number')
             else:
                 tags.append('other')
         
@@ -67,10 +101,30 @@ def getAntonym(word, parsedStatement):
         antStart = data.find(wordTag + '|ant|')
         if antStart != -1:
             antEnd = data.find('\n', antStart)
+            #print "antonym found: " + data[(len(wordTag) + antStart + 5):antEnd]
             return data[(len(wordTag) + antStart + 5):antEnd]
         else:
             return "Null"
         
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))    
+    
+def getTopic(entity):
+    params = urllib.urlencode({
+        # Request parameters
+        'input': entity
+    })
+    
+    try:
+        conn = httplib.HTTPSConnection('www.wolframcloud.com')
+        conn.request("POST", "/objects/f00dc79e-44d0-478e-bf45-9db34fa8da85?%s" % params)
+        response = conn.getresponse()
+        data = json.loads(response.read())
+        #print(data)
+        conn.close()
+                                
+        return str(data['Result']).strip(string.punctuation)
+    
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))    
     
@@ -83,7 +137,7 @@ def getSamples(entity):
     
     try:
         conn = httplib.HTTPSConnection('www.wolframcloud.com')
-        conn.request("POST", "/objects/2ae2d46d-23a0-4a53-8599-12e145a99b0f?%s" % params)
+        conn.request("POST", "/objects/794b2d41-2e30-4ccc-a5ce-0b698c03d1b2?%s" % params)
         response = conn.getresponse()
         data = json.loads(response.read())
         #print(data)
@@ -92,7 +146,7 @@ def getSamples(entity):
         roughText = data['Result'].replace(',','').split()  
         samples = []
         for word in roughText:
-            samples.append(str(word).strip(string.punctuation))
+           samples.append(str(word).strip(string.punctuation))
         return samples
     
     except Exception as e:
@@ -118,10 +172,10 @@ def getScore(statement):
         conn.request("POST", "/text/weblm/v1.0/calculateJointProbability?%s" % params, data, headers)
         response = conn.getresponse()
         data = json.loads(response.read())
-        #print(data)
         conn.close()
-        
+        #print float(str(data['results'][0]['probability']))       
         return float(str(data['results'][0]['probability']))       
+        
         
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
@@ -135,7 +189,7 @@ def recombine(tokens, replacement='', index=-1):
     for token in tokens:
         if token:
             combinedStatement += token + " "
-        
+    #print combinedStatement[:len(combinedStatement) -1]        
     return combinedStatement[:len(combinedStatement) -1]
 
 def truthme(statement):
@@ -143,6 +197,7 @@ def truthme(statement):
     #print parsedStatement
     verbIndex = 0   
     notExists = False
+    fullySuggested = False
     
     # find the verb    
     
@@ -156,10 +211,25 @@ def truthme(statement):
     # check for a not    
     
     for i, token in enumerate(parsedStatement[1]):
-        if token.lower() == 'not':
+        if token.lower() == 'not' or token.lower() == 'n\'t':
             notExists = True
-            parsedStatement[1][i] == ''
+            parsedStatement[1][i] = ''
             break
+        
+    # check if the descriptor is commonly associated with the subject
+        
+    fullySuggested = False        
+        
+    for i in range(verbIndex + 1, len(parsedStatement[0])):
+        if parsedStatement[0][i] == 'number' or parsedStatement[0][i] == 'noun':
+            if getSuggestion(recombine(parsedStatement[1][:i]), 
+                             parsedStatement[1][i]):
+                fullySuggested = True
+            else:
+                break
+    
+    if fullySuggested:
+        return (True != notExists)    
     
     # check for an antonym adjective, and compare    
     
@@ -189,6 +259,9 @@ def truthme(statement):
     
     for i in range(verbIndex + 1, len(parsedStatement[0])):
         if parsedStatement[0][i] == 'noun':
+            topic = getTopic(parsedStatement[0][i]).lower()
+            if (topic == 'word' or topic == 'icon' or topic == 'grammaticalunit'):
+                continue
             samples = getSamples(parsedStatement[1][i])
             ourScore = getScore(recombine(parsedStatement[1]))            
             
@@ -197,4 +270,15 @@ def truthme(statement):
                     return (False != notExists)
             return (True != notExists)
 
+    # evaluate the general likelihood of the statement
+
+    return ((getScore(recombine(parsedStatement[1])) > -10.0) != notExists)
+
 #data = truthme("Eight hours of sleep is healthy")
+#data = truthme("Ducks are aquatic animals")
+#data = truthme("UCLA wasn't founded in 1991")
+#data = truthme("Caltech is a great university")
+#data = truthme("Boeing is an American company")
+
+
+#print data
