@@ -2,6 +2,11 @@
 import os
 import sys
 
+#from django.core.wsgi import get_wsgi_application
+#os.environ.setdefault("vera_project","settings.py")
+#from dj_static import Cling
+#application = Cling(get_wsgi_application())
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vera_project.settings")
     try:
