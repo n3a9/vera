@@ -48,16 +48,37 @@ button {
     margin-top: 6em;
     display: block;
     border: 0;
-    background-color: #4cce9e;
-    box-shadow: 0 3px 0 0 #10724e;
+    background-color: #658181;
+    box-shadow: 0 3px 0 0 #5e7977;
     border-radius: 5px;
     cursor: pointer;
     height: 3em;
     width: 10em;
     font-size: 1.2em;
-    color: #10724e;
+    color: #fff;
 }
 
 button:hover {
     background-color: #49bb91;
+}
+
+@media screen and (max-width: 1046px) {
+
+    html {
+        padding-top: 20%;
+    }
+    
+    h1 {
+        font-size: 2.5em;
+    }
+    
+    h2 {
+        font-size: 2em;
+    }
+    
+    h3 {
+        font-size: 1.5em;
+        width: 80%;
+    }
+    
 }
