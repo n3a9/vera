@@ -1,1 +1,1 @@
-web: gunicorn vera_website.wsgi
+web: gunicorn vera_website:app
