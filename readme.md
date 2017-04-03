@@ -1,6 +1,6 @@
 # Vera ![lahacks badge](https://img.shields.io/badge/lahacks-rocks-ff69b4.svg)
 
-An artificial intelligence system to determine if a given statement is true or false.
+An artificial intelligence system based on machine learning and linguistic analysis to determine if a given statement is true or false.
 
 Nowadays, information is more accessible than ever. Often, people are surrounded with information from a million different sources, each claiming something or another. Along with these unstable times in our country, we determined that there should be a way to check the validity of a statement.
 
