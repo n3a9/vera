@@ -18,7 +18,7 @@ We used Microsoft Cognitive Services (MCS) Language Analytics to pick apart the 
 
 2. Second, we check whether the negative version of the statement is more or less likely to be predicted by MCS, using Big Huge Thesaurus to find antonyms. With Vera.fy, we were able to validate Donald Trump’s quote that “there has been a tremendous surge of optimism in the business world” using our second method. 
 
-3. Thirdly, we deployed our own API with Wolfram’s Cloud Development Platform to identify the topic of the statement, find descriptors in the same category and compare them with the current descriptor with MCS to see which one is the most plausible. For example, “”. 
+3. Thirdly, we deployed our own API with Wolfram’s Cloud Development Platform to identify the topic of the statement, find descriptors in the same category and compare them with the current descriptor with MCS to see which one is the most plausible. For example, in the phrase, “Boeing is an aerospace company” is a much likely statement than: Boeing is an agricultural company. 
 
 4. Finally, if all else fails, we determine the validity of the statement based on how likely MCS the words in the sentence to follow each other. For example, “Obama hates cheese.“ is just not a very common sentence.
 
