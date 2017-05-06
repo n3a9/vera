@@ -6,7 +6,7 @@ Nowadays, information is more accessible than ever. Often, people are surrounded
 
 At LAHacks 2017, we built an artificial intelligence system that uses machine learning from the Microsoft Cognitive Services to help determine whether a given statement is true or false.
 
-Check it out at [verafy.herokuapp.com](verafy.herokuapp.com).
+Check it out at [http://verafy.me](http://verafy.me).
 
 <img width="1680" alt="screen shot 2017-04-02 at 7 22 51 am" src="https://cloud.githubusercontent.com/assets/7104017/24588013/47be8d7e-1775-11e7-995a-03c936cc7bc1.png">
 
