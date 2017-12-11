@@ -1,9 +1,22 @@
-import json, httplib, urllib, base64, string
+import json, httplib, urllib, base64, string, os.path
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+#with open(os.path.join(__location__, 'keys.json')) as json_data:
+#    keys = json.load(json_data)
+
+#with open(os.path.join(BASE, 'keys.json')) as json_data:
+#    keys = json.load(json_data)
+
+from keys import keys 
 
 def getSuggestion(statement, word):
     headers = {
         # Request headers
-        'Ocp-Apim-Subscription-Key': '567bcf0b64d645e2880d710995d3ff88'
+        'Ocp-Apim-Subscription-Key': keys["suggestionsKey"]
     }
     
     params = urllib.urlencode({
@@ -19,7 +32,7 @@ def getSuggestion(statement, word):
         conn.request("POST", "/text/weblm/v1.0/generateNextWords?%s" % params, "", headers)
         response = conn.getresponse()  
         data = json.loads(response.read())
-        #print(data)
+        print(data)
         conn.close()
 
         for candidate in data['candidates']:
@@ -31,13 +44,14 @@ def getSuggestion(statement, word):
         return False
 
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        #print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print("Suggestion Error")
 
 def getTags(statement):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '2bb694121f48499293a61a070aa8e6ad',
+        'Ocp-Apim-Subscription-Key': keys["tagsKey"],
     }
     
     params = urllib.urlencode({
@@ -45,7 +59,7 @@ def getTags(statement):
     
     try:
         conn = httplib.HTTPSConnection('westus.api.cognitive.microsoft.com')
-        data = '{ "language" : "en", "analyzerIds" : ["4fa79af1-f22c-408d-98bb-b7d7aeef7f04", "08EA174B-BFDB-4E64-987E-602F85DA7F72"], "text" : "' + statement +'" }'
+        data = '{ "language" : "en", "analyzerIds" : ["' + keys["analyzerOneKey"] + '", "' + keys["analyzerTwoKey"] + '"], "text" : "' + statement +'" }'
         
         conn.request("POST", "/linguistics/v1.0/analyze?%s" % params, data, headers)
         response = conn.getresponse()
@@ -74,7 +88,8 @@ def getTags(statement):
         return [tags, tokens]
         
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        #print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print("Tagging Error")
     
 def getAntonym(word, parsedStatement):
     params = word
@@ -85,7 +100,7 @@ def getAntonym(word, parsedStatement):
     try:
         conn = httplib.HTTPSConnection('words.bighugelabs.com')
         
-        conn.request("POST", "/api/2/488536c4454c0a90bc703a2ac6670578/%s/" % params)
+        conn.request("POST", "/api/2/" + keys["antonymKey"] + "/%s/" % params)
         response = conn.getresponse()
         data = response.read()
         #print(data)
@@ -99,13 +114,13 @@ def getAntonym(word, parsedStatement):
         antStart = data.find(wordTag + '|ant|')
         if antStart != -1:
             antEnd = data.find('\n', antStart)
-            #print "antonym found: " + data[(len(wordTag) + antStart + 5):antEnd]
             return data[(len(wordTag) + antStart + 5):antEnd]
         else:
             return "Null"
         
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))    
+        #print("[Errno {0}] {1}".format(e.errno, e.strerror)) 
+        print("Antonym Error")   
     
 def getTopic(entity):
     params = urllib.urlencode({
@@ -115,7 +130,7 @@ def getTopic(entity):
     
     try:
         conn = httplib.HTTPSConnection('www.wolframcloud.com')
-        conn.request("POST", "/objects/f00dc79e-44d0-478e-bf45-9db34fa8da85?%s" % params)
+        conn.request("POST", "/objects/" + keys["topicKey"] + "?%s" % params)
         response = conn.getresponse()
         data = json.loads(response.read())
         #print(data)
@@ -124,7 +139,8 @@ def getTopic(entity):
         return str(data['Result']).strip(string.punctuation)
     
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))    
+        #print("[Errno {0}] {1}".format(e.errno, e.strerror))  
+        print("Topic Error")  
     
 def getSamples(entity):
     
@@ -135,7 +151,7 @@ def getSamples(entity):
     
     try:
         conn = httplib.HTTPSConnection('www.wolframcloud.com')
-        conn.request("POST", "/objects/794b2d41-2e30-4ccc-a5ce-0b698c03d1b2?%s" % params)
+        conn.request("POST", "/objects/" + keys["samplesKey"] + "?%s" % params)
         response = conn.getresponse()
         data = json.loads(response.read())
         #print(data)
@@ -148,13 +164,14 @@ def getSamples(entity):
         return samples
     
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        #print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print("Sampling Error")
 
 def getScore(statement):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '567bcf0b64d645e2880d710995d3ff88',
+        'Ocp-Apim-Subscription-Key': keys["scoreKey"],
     }
     
     params = urllib.urlencode({
@@ -176,7 +193,8 @@ def getScore(statement):
         
         
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        #print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print("Scoring Error")
     
 def recombine(tokens, replacement='', index=-1):
     combinedStatement = ""    
@@ -195,6 +213,7 @@ def getLikelihood(phrase, basePhrase):
     return 10 ** (getScore(phrase) - getScore(basePhrase))
 
 def truthme(statement):
+
     parsedStatement = getTags(statement) # tags, tokens
     #print parsedStatement
     verbIndex = 0   
@@ -276,11 +295,16 @@ def truthme(statement):
 
     return ((getScore(recombine(parsedStatement[1])) > -10.0) != notExists)
 
+
 #data = truthme("Eight hours of sleep is healthy")
 #data = truthme("Ducks are aquatic animals")
+#data = truthme("Ducks are mammals")
 #data = truthme("UCLA wasn't founded in 1991")
-#data = truthme("Caltech is a great university")
-#data = truthme("Boeing is an American company")
-
+#data = truthme("UCLA wasn't founded in 1991")
+#data = truthme("Caltech is a small university")
+#data = truthme("Boeing is a Russian company")
+#data = truthme("Boeing is a Russian company")
+#data = truthme("Donald Trump lost the popular vote")
+#data = truthme("Donald Trump has lowered unemployment")
 
 #print data

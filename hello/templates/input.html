@@ -5,6 +5,16 @@
 <html>
 
   <head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98461096-1', 'auto');
+  ga('send', 'pageview');
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Vera</title>
@@ -15,20 +25,81 @@
 
   </head>
 
-  <body align="center">
+  <body>
+    <div class="flex-container">
+      <header>
+        <div>
+          <form id="myForm">
+            <h2> What do you want to know? </h2>
+            <p>
+              <form method="GET">
+                <input type="text" id="myInput" name="myInput" value="{{ statement }}">
+                <button id="myButton" type="submit">Fact check!</button>
+              </form>
+            </p>
+          </form>
+        </div>
+      </header>
 
+      <nav class="nav" style="margin-left: 15%;">
+        <ul>
+          <h2>Suggested Queries</h2> 
+          <h3>
+            Donald Trump lost the popular vote <br>
+            Donald Trump has lowered unemployment <br>     
+            Boeing is an American company <br>
+            Boeing is a Russian company <br> 
+            UCLA wasn't founded in 1919  <br>
+            UCLA wasn't founded in 1991 <br> 
+            Ducks are aquatic animals <br>
+            Ducks are mammals <br>
+            Caltech is a small university <br>   
+            Eight hours of sleep is healthy <br>
+          </h3>
+        </ul>
 
+      </nav>
+
+      <article class="article">
+        <div id="infoLabel" style="margin-right: 15%;">
+          <h1>{{ evaluation }}<h1>
+        </div>
+      </article>
+    </div>
+
+<!--
     <div style="padding: 50px">
       <form id="myForm">
         <h2> What do you want to know? </h2>
         <p>
-          <input type="text" id="myInput"><button id="myButton" type="submit">Fact check!</button>
+          <form method="GET">
+            <input type="text" id="myInput" name="myInput" value="{{ statement }}">
+            <button id="myButton" type="submit">Fact check!</button>
+          </form>
         </p>
-    </form>
-  </div>
-    <!-- save space for truth value output -->
+      </form>
+    </div>
+    --><!-- save space for truth value output --><!--
 
-    <div id="infoLabel" style="padding: 20px">{{ }}</div>
+    <div id="suggestedQueries" align="right" style = "padding: 10px">
+      <h2>Suggested Queries</h2>
+      <h3>
+        Eight hours of sleep is healthy <br>
+        Ducks are aquatic animals <br>
+        Ducks are mammals <br>
+        UCLA wasn't founded in 1919  <br>
+        UCLA wasn't founded in 1991 <br>
+        Caltech is a small university <br>
+        Boeing is an American company <br>
+        Boeing is a Russian company <br>
+        Donald Trump lost the popular vote <br>
+        Donald Trump has lowered unemployment <br>
+      </h3>
+    </div>
+    <div id="infoLabel" align="left" style="padding: 20px">
+      <h1>{{ evaluation }}<h1>
+    </div>
+  -->
   </body>
 
 </html>
