@@ -25,11 +25,12 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = django_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if 'VERAFY_DEBUG' in os.environ and os.environ['VERAFY_DEBUG']:
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = [
-    u'vera-env.vdnceqx9gm.us-west-2.elasticbeanstalk.com',
-    'vera-env.vdnceqx9gm.us-west-2.elasticbeanstalk.com',
     u'localhost',
     u'127.0.0.1',
     u'verafy.me'
@@ -101,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_valdj_databaseidation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
@@ -127,4 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+if 'VERAFY_DEBUG' in os.environ and os.environ['VERAFY_DEBUG']:
+    STATIC_ROOT = 'static'
+else:
+    STATIC_ROOT = '/var/www/verafy.me/static/'
