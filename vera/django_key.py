@@ -1,0 +1,1 @@
+﻿django_key = 'op6u8r%dha$=u_(h%(toy+svxqs+1i-(^1mn$(hs&iwfpbt--_'
