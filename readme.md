@@ -31,6 +31,12 @@ Built using Python and Django. Connected with Microsoft Cognitive Services API, 
 
 Deployed using Heroku.
 
+# Build and Run
+
+Install dependencies with `$ pip install -r requirements.txt`.
+Run with `$ python manage.py runserver` and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
+
 ## Contributors
 
 [Kyle](https://github.com/kdpatters) & [Alex](https://github.com/alexcdot) & [Ankur](https://github.com/ankurpapneja) & [Neeraj](https://github.com/n3a9)
