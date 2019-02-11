@@ -31,14 +31,13 @@ Built using Python and Django. Connected with Microsoft Cognitive Services API, 
 
 Deployed using Heroku.
 
-# Build and Run
+## Build and Run
 
 Install dependencies with `$ pip install -r requirements.txt`.
 
 To run the server in development mode, run `export VERAFY_DEBUG=True`. To run the server in production mode, run `export VERAFY_DEBUG=False`. Production mode is the default, if VERAFY_DEBUG is not set.
 
 Then, run with `$ python manage.py runserver` and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
-
 
 ## Contributors
 
